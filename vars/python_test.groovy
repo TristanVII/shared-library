@@ -6,7 +6,7 @@ def call() {
         stage('Lint') {
             steps {
                 script {
-                    sh 'pip install pylint -y && pylint --fail-under=5 *.py'
+                    sh 'pip install pylint && pylint --fail-under=5 *.py'
                 }
             }
         }
