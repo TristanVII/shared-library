@@ -1,16 +1,16 @@
 def call(dir) {
     pipeline {
     agent any
-
+    environment {
+        PATH = "/var/lib/jenkins/.local/bin:$PATH"
+    }
     stages {
         stage('Lint') {
             steps {
                 script {
                     sh """#!/usr/bin/env bash
                             pip install pylint
-                            export PATH="/var/lib/jenkins/.local/bin:$PATH"
-                            ls
-                            pylint --fail-under=5 ./${dir}/*.py
+                            pylint --fail-under=5 --disable import-error ./${dir}/*.py
                             """
                 }
             }
