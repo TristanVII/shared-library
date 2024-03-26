@@ -30,6 +30,7 @@ def call(dir, imageName, build) {
             steps {
                 withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
                     sh "cd ./${dir}"
+                    ls
                     sh "docker login -u 'tristan007' -p '$TOKEN' docker.io"
                     sh "docker build -t ${dir}:latest --tag tristan007/${dir}:${imageName} ."
                     sh "docker push tristan007/${dir}:${imageName}"
