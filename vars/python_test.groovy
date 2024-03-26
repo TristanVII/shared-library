@@ -7,6 +7,7 @@ def call() {
             steps {
                 script {
                     sh """#!/usr/bin/env bash
+                            ls /var/lib/jenkins/.local/lib/python3.8/site-packages
                             pip install pylint
                             pylint --fail-under=5 *.py
                             """
