@@ -1,5 +1,8 @@
 def call() {
     pipeline {
-       echo "Hello from Shared Library" 
+        agent any
+        stage('Test') {
+            echo 'Hello from Shared Library'
+        }
     }
 }
