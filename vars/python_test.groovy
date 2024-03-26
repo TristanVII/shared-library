@@ -25,7 +25,20 @@ def call(dir) {
                 }
             }
         }
-
+        stage('Package') {
+            steps {
+                script {
+                    echo 'Package'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Deploy'
+                }
+            }
+        }
         // stage('Unit Test') {
         //     steps {
         //         script {
