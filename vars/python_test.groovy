@@ -8,9 +8,7 @@ def call() {
                 script {
                     sh """#!/usr/bin/env bash
                             pip install pylint
-                            echo "TEEEEEESTTTT ___________"
-                            ls /var/lib/jenkins/.local/lib/python3.8/site-packages
-                            pylint --fail-under=5 *.py
+                            /var/lib/jenkins/.local/lib/python3.8/site-packages/pylint --fail-under=5 *.py
                             """
                 }
             }
