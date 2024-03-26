@@ -12,4 +12,3 @@ def call(String message) {
         }
     }
 }
-}
