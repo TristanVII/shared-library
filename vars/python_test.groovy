@@ -1,4 +1,4 @@
-def call() {
+def call(dir) {
     pipeline {
     agent any
 
@@ -10,7 +10,7 @@ def call() {
                             pip install pylint
                             export PATH="/var/lib/jenkins/.local/bin:$PATH"
                             ls
-                            pylint --fail-under=5 *.py
+                            pylint --fail-under=5 ./${dir}*.py
                             """
                 }
             }
