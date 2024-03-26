@@ -9,6 +9,7 @@ def call() {
                     sh """#!/usr/bin/env bash
                             pip install pylint
                             export PATH="/var/lib/jenkins/.local/bin:$PATH"
+                            ls
                             pylint --fail-under=5 *.py
                             """
                 }
