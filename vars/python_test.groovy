@@ -15,6 +15,16 @@ def call(dir) {
                 }
             }
         }
+        stage('Security') {
+            steps {
+                script {
+                    sh """#!/usr/bin/env bash
+                            pip install bandit
+                            bandit -r ./${dir}
+                            """
+                }
+            }
+        }
 
         // stage('Unit Test') {
         //     steps {
