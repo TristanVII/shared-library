@@ -32,9 +32,9 @@ def call(dir, imageName, build) {
                 script {
                         sh """#!/usr/bin/env bash
                             cd ${dir}
-                            sh "docker login -u 'tristan007' -p '$TOKEN' docker.io"
-                            sh "docker build -t ${dir}:latest --tag tristan007/${dir}:${imageName} ."
-                            sh "docker push tristan007/${dir}:${imageName}"
+                            docker login -u 'tristan007' -p '$TOKEN' docker.io
+                            docker build -t ${dir}:latest --tag tristan007/${dir}:${imageName} .
+                            docker push tristan007/${dir}:${imageName}
                         """
                     }
             }
