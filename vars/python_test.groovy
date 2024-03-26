@@ -27,6 +27,11 @@ def call(dir, imageName, build) {
             }
         }
     stage('Package') {
+        when {
+            expression {
+                ${build} == 'true'
+            }
+        }
         steps {
             withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
                 script {
