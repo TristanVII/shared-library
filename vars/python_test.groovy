@@ -10,7 +10,7 @@ def call(dir) {
                             pip install pylint
                             export PATH="/var/lib/jenkins/.local/bin:$PATH"
                             ls
-                            pylint --fail-under=5 ./${dir}*.py
+                            pylint --fail-under=5 ./${dir}/*.py
                             """
                 }
             }
