@@ -8,7 +8,7 @@ def call() {
                 script {
                     sh """#!/usr/bin/env bash
                             pip install pylint
-                            pylint --fail-under=5 *.py > reports/pylint.log
+                            pylint --fail-under=5 *.py
                             """
                 }
             }
