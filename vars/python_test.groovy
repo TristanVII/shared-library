@@ -3,38 +3,38 @@ def call(dir, imageName, build) {
     pipeline {
     agent any
     environment {
-        PATH = "/var/lib/jenkins/.local/bin:$PATH"
+        PATH = '/var/lib/jenkins/.local/bin:$PATH'
     }
     stages {
         stage('Lint') {
             steps {
                 script {
-                    sh """#!/usr/bin/env bash
+                    sh '''#!/usr/bin/env bash
                             pip install pylint
                             pylint --fail-under=5 --disable import-error ./${dir}/*.py
-                            """
+                            '''
                 }
             }
         }
         stage('Security') {
             steps {
                 script {
-                    sh """#!/usr/bin/env bash
+                    sh '''#!/usr/bin/env bash
                             pip install bandit
                             bandit -r ./${dir}
-                            """
+                            '''
                 }
             }
         }
         stage('Package') {
             steps {
                 withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
-                    dir("${dir}") {
-                        script {
-                            sh "ls"
-                            sh "docker login -u 'tristan007' -p '$TOKEN' docker.io"
-                            sh "docker build -t ${dir}:latest --tag tristan007/${dir}:${imageName} ."
-                            sh "docker push tristan007/${dir}:${imageName}"
+                    script {
+                        dir('${dir}') {
+                            sh 'ls'
+                            sh 'docker login -u 'tristan007' -p '$TOKEN' docker.io'
+                            sh 'docker build -t ${dir}:latest --tag tristan007/${dir}:${imageName} .'
+                            sh 'docker push tristan007/${dir}:${imageName}'
                         }
                     }
                 }
@@ -64,8 +64,8 @@ def call(dir, imageName, build) {
         //             // Code to Run the Unit Tests with for loop
         //             def testFiles = findFiles(glob: 'test_*.py')
         //             for (file in testFiles) {
-        //                 // sh "source venv/bin/activate && python3 ${file.path}"
-        //                 sh "source venv/bin/activate && coverage run --omit */dist-packages/*,*/site-packages/* ${file.path}"
+        //                 // sh 'source venv/bin/activate && python3 ${file.path}'
+        //                 sh 'source venv/bin/activate && coverage run --omit */dist-packages/*,*/site-packages/* ${file.path}'
         //             }
         //         }
         //     }
@@ -92,9 +92,9 @@ def call(dir, imageName, build) {
         //     }
         //     steps {
         //         withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
-        //             sh "docker login -u 'tristan007' -p '$TOKEN' docker.io"
-        //             sh "docker build -t ${dockerRepoName}:latest --tag tristan007/${dockerRepoName}:${imageName} ."
-        //             sh "docker push tristan007/${dockerRepoName}:${imageName}"
+        //             sh 'docker login -u 'tristan007' -p '$TOKEN' docker.io'
+        //             sh 'docker build -t ${dockerRepoName}:latest --tag tristan007/${dockerRepoName}:${imageName} .'
+        //             sh 'docker push tristan007/${dockerRepoName}:${imageName}'
         //         }
         //     }
         // }
