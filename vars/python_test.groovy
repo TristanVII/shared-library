@@ -27,11 +27,6 @@ def call(dir, imageName, build) {
             }
         }
     stage('Package') {
-        when {
-            expression {
-                ${build} == 'true'
-            }
-        }
         steps {
             withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
                 script {
@@ -48,8 +43,10 @@ def call(dir, imageName, build) {
 
         stage('Deploy') {
             steps {
-                script {
-                    echo 'Deploy'
+                sshagent(credentials : ['ssh-key']) {
+                    sh 'ssh -o StrictHostKeyChecking=no user@hostname.com uptime'
+                    sh 'ssh -v user@hostname.com'
+                    sh 'scp ./source/filename user@hostname.com:/remotehost/target'
                 }
             }
         }
