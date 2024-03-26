@@ -29,8 +29,8 @@ def call(dir, imageName, build) {
         stage('Package') {
             steps {
                 withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
-                    script {
-                        dir("${dir}") {
+                    dir("${dir}") {
+                        script {
                             sh "ls"
                             sh "docker login -u 'tristan007' -p '$TOKEN' docker.io"
                             sh "docker build -t ${dir}:latest --tag tristan007/${dir}:${imageName} ."
