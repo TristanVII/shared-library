@@ -1,4 +1,4 @@
-def call(dockerRepoName, imageName) {
+def call() {
     pipeline {
     agent any
 
