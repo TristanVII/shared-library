@@ -1,5 +1,5 @@
 // Directory is path to service, also docker repo name
-def call(dir imageName, build) {
+def call(dir, imageName, build) {
     pipeline {
     agent any
     environment {
