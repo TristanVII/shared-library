@@ -48,12 +48,7 @@ def call(dir, imageName, build) {
                 steps {
                     sshagent(credentials : ['ssh-key']) {
                         // https://stackoverflow.com/questions/18522647/run-ssh-and-immediately-execute-command - Run commands using quotes
-                        remoteCommands = """
-                        ls
-                    """
-                        sh """
-                        ssh -tt tristandavis888@34.118.240.191 ${remoteCommands}
-                    """
+                        'ssh -t -t tristandavis888@34.118.240.191 -o StrictHostKeyChecking=no "echo pwd"'
                     }
                 }
             }
