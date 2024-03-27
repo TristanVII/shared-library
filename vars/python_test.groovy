@@ -27,6 +27,9 @@ def call(dir, imageName, build) {
                 }
             }
             stage('Package') {
+                when {
+                    expression { env.GIT_BRANCH == 'origin/main' }
+                }
                 steps {
                     withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
                         script {
