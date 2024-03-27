@@ -47,8 +47,12 @@ def call(dir, imageName, build) {
             stage('Deploy') {
                 steps {
                     sshagent(credentials : ['ssh-key']) {
-                        sh 'ssh -o StrictHostKeyChecking=no tristandavis888@34.118.240.191'
-                        sh 'ls'
+                        // https://stackoverflow.com/questions/18522647/run-ssh-and-immediately-execute-command - Run commands using quotes
+                        sh """
+                        ssh -o StrictHostKeyChecking=no your-remote-user@your-remote-host '
+                            ls
+                        '
+                    """
                     }
                 }
             }
