@@ -49,7 +49,7 @@ def call(dir, imageName, build) {
                     sshagent(credentials : ['ssh-key']) {
                         // https://stackoverflow.com/questions/18522647/run-ssh-and-immediately-execute-command - Run commands using quotes
                         sh """
-                        ssh -o StrictHostKeyChecking=no tristandavis888@34.118.240.191'
+                        ssh -o StrictHostKeyChecking=no -t -t tristandavis888@34.118.240.191'
                             ls
                         '
                     """
