@@ -70,11 +70,11 @@ def call(dir, imageName) {
                         sh 'ssh -t -t tristandavis888@34.118.240.191 -o StrictHostKeyChecking=no "cd ./kafka/deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
                     }
                 }
-            }
-            post {
-                always {
-                    script {
-                        sh 'rm -rf venv'
+                post {
+                    always {
+                        script {
+                            sh 'rm -rf venv'
+                        }
                     }
                 }
             }
