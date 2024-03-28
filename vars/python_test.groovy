@@ -72,12 +72,12 @@ def call(dir, imageName) {
                 }
             }
             post {
-                    always {
-                        script {
-                            sh 'rm -rf venv'
-                        }
+                always {
+                    script {
+                        sh 'rm -rf venv'
                     }
                 }
+            }
         }
     }
 }
