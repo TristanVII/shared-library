@@ -9,11 +9,25 @@ def call(dir, imageName) {
             booleanParam(defaultValue: false, description: 'Deploy the App', name:'DEPLOY')
         }
         stages {
+            stage('Setup') {
+                steps {
+                    script {
+                        sh """
+                            python3 -m venv venv
+                            . venv/bin/activate
+                            pip install pylint
+                            pip install --upgrade pip
+                            pip install --upgrade flask
+                            pip install bandit
+                        """
+                    }
+                }
+            }
             stage('Lint') {
                 steps {
                     script {
                         sh """
-                            pip install pylint
+                            . venv/bin/activate
                             pylint --fail-under=5 --disable import-error ./${dir}/*.py
                         """
                     }
@@ -23,7 +37,7 @@ def call(dir, imageName) {
                 steps {
                     script {
                         sh """
-                            pip install bandit
+                            . venv/bin/activate
                             bandit -r ./${dir}
                         """
                     }
