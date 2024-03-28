@@ -1,9 +1,12 @@
 // Directory is path to service, also docker repo name
-def call(dir, imageName, build) {
+def call(dir, imageName) {
     pipeline {
         agent any
         environment {
             PATH = "/var/lib/jenkins/.local/bin:$PATH"
+        }
+        parameters {
+            booleanParam(defaultValue: false, description: 'Deploy the App', name:'DEPLOY')
         }
         stages {
             stage('Lint') {
@@ -12,7 +15,7 @@ def call(dir, imageName, build) {
                         sh """
                             pip install pylint
                             pylint --fail-under=5 --disable import-error ./${dir}/*.py
-                            """
+                        """
                     }
                 }
             }
@@ -22,7 +25,7 @@ def call(dir, imageName, build) {
                         sh """
                             pip install bandit
                             bandit -r ./${dir}
-                            """
+                        """
                     }
                 }
             }
@@ -43,8 +46,10 @@ def call(dir, imageName, build) {
                     }
                 }
             }
-
             stage('Deploy') {
+                when {
+                    expression { params.DEPLOY }
+                }
                 steps {
                     sshagent(credentials : ['ssh-key']) {
                         // https://stackoverflow.com/questions/18522647/run-ssh-and-immediately-execute-command - Run commands using quotes
